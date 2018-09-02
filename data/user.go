@@ -36,8 +36,22 @@ func (user *User) CreateSession() (session Session, err error) {
 		return
 	}
 	defer stmt.Close()
+
+	rst, err := stmt.Exec(createUUID(), user.Email, user.Id, time.Now())
+	if err != nil {
+		p("User.CreateSession stmt.Exec failed.")
+		return
+	}
+	lastid, err := rst.LastInsertId()
+	if err != nil {
+		p("User.CreateSession get LastInertId failed.")
+		return
+	}
+	p("last inert id ", lastid)
+
+
 	// use QueryRow to return a row and scan the returned id into the Session struct
-	err = stmt.QueryRow(createUUID(), user.Email, user.Id, time.Now()).Scan(&session.Id, &session.Uuid, &session.Email, &session.UserId, &session.CreatedAt)
+	err = stmt.QueryRow("select id, uuid, email, user_id, create_at where id=?", lastid).Scan(&session.Id, &session.Uuid, &session.Email, &session.UserId, &session.CreatedAt)
 	return
 }
 
