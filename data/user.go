@@ -50,8 +50,14 @@ func (user *User) CreateSession() (session Session, err error) {
 	p("last inert id ", lastid)
 
 
+	statement := "select id, uuid, email, user_id, create_at where id=?"
+	stmt, err := Db.Prepare(statement)
+	if err != nil {
+		p("User.CreateSession query prepare failed.")
+		return
+	}
 	// use QueryRow to return a row and scan the returned id into the Session struct
-	err = stmt.QueryRow("select id, uuid, email, user_id, create_at where id=?", lastid).Scan(&session.Id, &session.Uuid, &session.Email, &session.UserId, &session.CreatedAt)
+	err = stmt.QueryRow(lastid).Scan(&session.Id, &session.Uuid, &session.Email, &session.UserId, &session.CreatedAt)
 	return
 }
 
