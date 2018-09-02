@@ -1,6 +1,7 @@
 package data
 
 import (
+	"fmt"
 	"time"
 )
 
@@ -19,6 +20,10 @@ type Session struct {
 	Email     string
 	UserId    int
 	CreatedAt time.Time
+}
+
+func p(a ...interface{}) {
+	fmt.Println(a)
 }
 
 // Create a new session for an existing user
