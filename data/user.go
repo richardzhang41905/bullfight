@@ -89,15 +89,27 @@ func (user *User) Create() (err error) {
 	// Postgres does not automatically return the last insert id, because it would be wrong to assume
 	// you're always using a sequence.You need to use the RETURNING keyword in your insert to get this
 	// information from postgres.
-	statement := "insert into users (uuid, name, email, password, created_at) values ($1, $2, $3, $4, $5) returning id, uuid, created_at"
+	//statement := "insert into users (uuid, name, email, password, created_at) values ($1, $2, $3, $4, $5) returning id, uuid, created_at"
+	statement := "insert into users (uuid, name, email, password, created_at) values (?, ?, ?, ?, ?)"
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
+		p("User.Create Db.Prepare failed.")
 		return
 	}
 	defer stmt.Close()
-
+	rst, err := stmt.Exec(createUUID(), user.Name, user.Email, Encrypt(user.Password), time.Now())
+	if err != nil {
+		p("User.Create stmt.Exec failed.")
+		return
+	}
+	lastid, err := rst.LastInsertId()
+	if err != nil {
+		p("User.Create get LastInertId failed.")
+		return
+	}
+	p("last inert id ", lastid)
 	// use QueryRow to return a row and scan the returned id into the User struct
-	err = stmt.QueryRow(createUUID(), user.Name, user.Email, Encrypt(user.Password), time.Now()).Scan(&user.Id, &user.Uuid, &user.CreatedAt)
+	//err = stmt.QueryRow(createUUID(), user.Name, user.Email, Encrypt(user.Password), time.Now()).Scan(&user.Id, &user.Uuid, &user.CreatedAt)
 	return
 }
 
