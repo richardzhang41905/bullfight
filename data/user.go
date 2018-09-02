@@ -49,8 +49,7 @@ func (user *User) CreateSession() (session Session, err error) {
 	}
 	p("last inert id ", lastid)
 
-
-	statement = "select id, uuid, email, user_id, create_at where id=?"
+	statement = "select id, uuid, email, user_id, create_at from sessions where id=?"
 	stmt, err = Db.Prepare(statement)
 	if err != nil {
 		p("User.CreateSession query prepare failed.")
