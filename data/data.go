@@ -22,7 +22,7 @@ const (
 var Db *sql.DB
 
 func init() {
-	path := strings.Join([]string{userName, ":", password, "@tcp(", ip, ":", port, ")/", dbName, "?charset=utf8"}, "")
+	path := strings.Join([]string{userName, ":", password, "@tcp(", ip, ":", port, ")/", dbName, "?charset=utf8&parseTime=true"}, "")
 	var err error
 	//Db, err = sql.Open("postgres", "dbname=chitchat sslmode=disable")
 	Db, err = sql.Open("mysql", path)
