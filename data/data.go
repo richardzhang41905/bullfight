@@ -15,7 +15,7 @@ const (
 	userName = "root"
 	password = "Zyl@1982"
 	ip       = "127.0.0.1"
-	port     = 3306
+	port     = "3306"
 	dbName   = "bullfight"
 )
 
@@ -30,8 +30,8 @@ func init() {
 		log.Fatal(err)
 	}
 
-	DB.SetConnMaxLifetime(100)
-	DB.SetMaxIdleConns(10)
+	Db.SetConnMaxLifetime(100)
+	Db.SetMaxIdleConns(10)
 
 	return
 }
