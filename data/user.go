@@ -32,6 +32,7 @@ func (user *User) CreateSession() (session Session, err error) {
 	statement := "insert into sessions (uuid, email, user_id, created_at) values (?, ?, ?, ?)"
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
+		p("User.CreateSession failed.")
 		return
 	}
 	defer stmt.Close()
