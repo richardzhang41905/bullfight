@@ -5,18 +5,34 @@ import (
 	"crypto/sha1"
 	"database/sql"
 	"fmt"
-	_ "github.com/lib/pq"
 	"log"
+	"strings"
+
+	_ "github.com/go-sql-driver/mysql"
+)
+
+const (
+	userName = "root"
+	password = "Zyl@1982"
+	ip       = "127.0.0.1"
+	port     = 3306
+	dbName   = "bullfight"
 )
 
 var Db *sql.DB
 
 func init() {
+	path := strings.Join([]string{userName, ":", password, "@tcp(", ip, ":", port, ")/", dbName, "?charset=utf8"}, "")
 	var err error
-	Db, err = sql.Open("postgres", "dbname=chitchat sslmode=disable")
+	//Db, err = sql.Open("postgres", "dbname=chitchat sslmode=disable")
+	Db, err = sql.Open("mysql", path)
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	DB.SetConnMaxLifetime(100)
+	DB.SetMaxIdleConns(10)
+
 	return
 }
 
