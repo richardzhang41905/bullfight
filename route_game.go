@@ -38,8 +38,9 @@ func createGame(writer http.ResponseWriter, request *http.Request) {
 		info("createGame type:", ty)
 		if _, err := user.CreateGame(); err != nil {
 			danger(err, "Cannot create game")
+			fmt.Println("Cannot create game", err)
 		}
-		http.Redirect(writer, request, "/", 302)
+		http.Redirect(writer, request, "/index", 302)
 	}
 }
 /*
