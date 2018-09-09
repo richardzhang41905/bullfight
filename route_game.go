@@ -34,6 +34,7 @@ func createGame(writer http.ResponseWriter, request *http.Request) {
 			danger(err, "Cannot get user from session")
 		}
 		ty := request.PostFormValue("type")
+		fmt.Println("createGame type:", ty)
 		info("createGame type:", ty)
 		if _, err := user.CreateGame(); err != nil {
 			danger(err, "Cannot create game")
