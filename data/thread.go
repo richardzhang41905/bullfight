@@ -26,10 +26,6 @@ func (thread *Thread) CreatedAtDate() string {
 	return thread.CreatedAt.Format("Jan 2, 2006 at 3:04pm")
 }
 
-func (post *Post) CreatedAtDate() string {
-	return post.CreatedAt.Format("Jan 2, 2006 at 3:04pm")
-}
-
 // get the number of posts in a thread
 func (thread *Thread) NumReplies() (count int) {
 	rows, err := Db.Query("SELECT count(*) FROM posts where thread_id = $1", thread.Id)

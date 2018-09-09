@@ -105,7 +105,7 @@ func Games() (games []Game, err error) {
 	}
 
 
-	rows, err := Db.Query("SELECT id, uuid1, user_id1, created_at, status FROM games where status=1 ORDER BY created_at DESC")
+	rows, err = Db.Query("SELECT id, uuid1, user_id1, created_at, status FROM games where status=1 ORDER BY created_at DESC")
 	if err != nil {
 		return
 	}
