@@ -19,15 +19,16 @@ func err(writer http.ResponseWriter, request *http.Request) {
 }
 
 func index(writer http.ResponseWriter, request *http.Request) {
-	threads, err := data.Threads()
+	games, err := data.Games()
 	if err != nil {
-		error_message(writer, request, "Cannot get threads")
+		error_message(writer, request, "Cannot get games")
 	} else {
 		_, err := session(writer, request)
 		if err != nil {
-			generateHTML(writer, threads, "layout", "public.navbar", "index")
+			generateHTML(writer, games, "layout", "public.navbar", "index")
 		} else {
-			generateHTML(writer, threads, "layout", "private.navbar", "index")
+
+			generateHTML(writer, games, "layout", "private.navbar", "index")
 		}
 	}
 }

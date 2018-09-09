@@ -37,3 +37,19 @@ create table posts (
   thread_id  integer references threads(id),
   created_at timestamp not null  
 );
+
+create table games(
+	id        serial primary key,
+	uuid1       varchar(64) not null unique,
+	uuid2       varchar(64) unique,
+	user_id1    integer references users(id),
+	user_id2		integer references users(id),
+	created_at  timestamp not null,
+	join_at timestamp,
+	closed_at timestamp,
+	left_cards text,
+	user1_cards text,
+	user2_cards text,
+	status integer,
+	result integer
+);
