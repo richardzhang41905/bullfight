@@ -36,6 +36,10 @@ func main() {
 	mux.HandleFunc("/thread/post", postThread)
 	mux.HandleFunc("/thread/read", readThread)
 
+	// defined in route_game.go
+	mux.HandleFunc("/game/new", newGame)
+	mux.HandleFunc("/game/create", createGame)
+
 	// starting up the server
 	server := &http.Server{
 		Addr:           config.Address,

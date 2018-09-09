@@ -39,15 +39,15 @@ create table posts (
 );
 
 create table games(
-	id        serial primary key,
-	uuid1       varchar(64) not null unique,
-	uuid2       varchar(64) unique,
+	id          serial primary key,
+	uuid1       varchar(64) not null,
+	uuid2       varchar(64),
 	user_id1    integer references users(id),
-	user_id2		integer references users(id),
-	created_at  timestamp not null,
-	join_at timestamp,
-	closed_at timestamp,
-	left_cards text,
+	user_id2    integer references users(id),
+	created_at  datetime not null default CURRENT_TIMESTAMP (),
+	join_at     datetime null,
+	closed_at   datetime null,
+	left_cards  text,
 	user1_cards text,
 	user2_cards text,
 	status integer,
