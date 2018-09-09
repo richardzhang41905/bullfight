@@ -34,15 +34,17 @@ func (post *Post) CreatedAtDate() string {
 func (game *Game) IsPlayer(user_id int) (bool) {
 	rows, err := Db.Query("SELECT count(*) FROM games where user1_id = ? or user2_id = ?", user_id , user_id)
 	if err != nil {
-		return
+		return false
 	}
+	defer rows.Close()
+
 	count := 0
 	for rows.Next() {
 		if err = rows.Scan(&count); err != nil {
-			return
+			return false // ???
 		}
 	}
-	rows.Close()
+
 	if count > 0 {
 		return true
 	}else {
