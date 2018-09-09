@@ -51,7 +51,8 @@ func (game *Game) IsPlayer(user_id int) (bool) {
 
 // Create a new thread
 func (user *User) CreateGame() (game Game, err error) {
-	statement := "insert into games (uuid1, user_id1, created_at,status) values (?, ?, ?, ?) returning uuid1, user_id1, created_at, status"
+	//statement := "insert into games (uuid1, user_id1, created_at,status) values (?, ?, ?, ?) returning uuid1, user_id1, created_at, status"
+	statement := "insert into games (uuid1, user_id1, created_at,status) values (?, ?, ?, ?)"
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
 		return Game{}, err
