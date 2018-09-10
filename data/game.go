@@ -91,18 +91,21 @@ func (user *User) CreateGame() (game Game, err error) {
 // Get all new start games.
 func Games() (games []Game, err error) {
 	rows, err := Db.Query("SELECT id, uuid1, user_id1, created_at, status FROM games where status=1 ORDER BY created_at DESC")
+	defer rows.Close()
 	if err != nil {
 		return
 	}
 	for rows.Next() {
 		conv := Game{}
 		if err = rows.Scan(&conv.Id, &conv.Uuid1, &conv.UserId1, &conv.CreatedAt, &conv.Status); err != nil {
+			p("Games scan failed.", err)
 			return
 		}
+		p("Games scan one row.", conv)
 		games = append(games, conv)
 	}
 
-
+/*
 	rows, err = Db.Query("SELECT id, uuid1, user_id1, created_at, status FROM games where status=1 ORDER BY created_at DESC")
 	defer rows.Close()
 	if err != nil {
@@ -118,7 +121,7 @@ func Games() (games []Game, err error) {
 		p("Games scan one row.", conv)
 		games = append(games, conv)
 	}
-	
+	*/
 	//rows.Close()
 	return
 }
