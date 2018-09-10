@@ -93,6 +93,7 @@ func Games() (games []Game, err error) {
 	rows, err := Db.Query("SELECT id, uuid1, user_id1, created_at, status FROM games where status=1 ORDER BY created_at DESC")
 	defer rows.Close()
 	if err != nil {
+		p("Games query failed.", err)
 		return
 	}
 	for rows.Next() {
@@ -105,6 +106,7 @@ func Games() (games []Game, err error) {
 		games = append(games, conv)
 	}
 
+	p("Games size:", len(games))
 /*
 	rows, err = Db.Query("SELECT id, uuid1, user_id1, created_at, status FROM games where status=1 ORDER BY created_at DESC")
 	defer rows.Close()
