@@ -6,10 +6,10 @@
 {{ range . }}
   <div class="panel panel-default">
     <div class="panel-heading">
-      <span class="lead"> <i class="fa fa-comment-o"></i> {{ .Topic }}</span>
+      <span class="lead"> <i class="fa fa-comment-o"></i> {{ .Id }}</span>
     </div>
     <div class="panel-body">
-      Started by {{ .Id }} - {{ .Uuid1 }} - {{ .UserId1 }} - {{ .CreatedAt }}.
+      Started by {{ .Uuid1 }} - {{ .UserId1 }} - {{ .CreatedAt }}.
       <div class="pull-right">
         <a href="/game/join?id={{ .Id }}">Join the game</a>
       </div>
